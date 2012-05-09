@@ -85,7 +85,8 @@ getData(){
 	echo "Calculating size of: $DATAPATH"
 	SIZE=$(dataSize "$DATAPATH")
 	echo "The size of $DATAPATH is: $SIZE"
-	read -p 'Continue? [Y/n] ' REPLY
+	echo -n 'Continue? [Y/n] '
+	read REPLY
 	case "$REPLY" in
 	 y|Y|'') getDataProto "$DATAPATH"  ;;
 	 n|N) echo "Cancelling..." ;; 
@@ -96,8 +97,47 @@ getData(){
 # Actually get the file
 getDataProto(){
 	FILENAME=jacked_$(date +%s).tar
-	adb shell "tar -cf - $* 2>/dev/null" > $FILENAME
+	adb shell "tar -cf - $* 2>/dev/null | base64 " | tr -d "\r" |  base64 -d > $FILENAME
 	echo "The file has been saved as $FILENAME"
 }
 
 
+
+# A more refined find function
+getSearch(){
+	DATAPATH="$1"
+	FILE="$2"
+	SIZE="$3"
+	if [ -z "$FILE" ]; then
+		FILE="*"
+	fi
+	if [ -z "$SIZE" ]; then
+		SIZE="+0"
+	fi
+	echo "Searching for and calculating size of $DATAPATH - $FILE - $SIZE"
+	FINALSIZE=$(size "$DATAPATH" "$FILE" "$SIZE" )
+	echo "The size of $DATAPATH is: $FINALSIZE"
+	echo -n 'Continue? [Y/n] ' 
+	read REPLY
+	case "$REPLY" in
+	 y|Y|'') getSearchProto "$DATAPATH" "$FILE" "$SIZE"  ;;
+	 n|N) echo "Cancelling..." ;; 
+	 *) echo "Cancelling..." ;;
+	esac
+}
+
+
+# Actually get the file
+getSearchProto(){
+	FILENAME=jacked_$(date +%s).tar
+	adb shell "find $1 -iname '$2' -type f -size $3 -exec tar -cf - {} \; 2>/dev/null | base64 " | tr -d "\r" | base64 -d > $FILENAME
+	echo "The file has been saved as $FILENAME"
+}
+
+search(){
+	adb shell "find $1 -iname '$2' -type f -size $3 -exec ls {} \;"
+}
+
+size(){
+	adb shell "find $1 -iname \"$2\" -type f -size $3 -print0 | xargs -0 du -ch|tail -n1"
+}

