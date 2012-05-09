@@ -10,8 +10,9 @@ Goal/Reason
 
 Attacking another device by plugging directly into it has always been something I thought would be movie hacker cool.
 
-One evening, circumstances forced me to leave my computer before ensuring my phone re-flash had gone correctly. It had not. I conveniently had another Android phone with me that I was preparing to take with me on an out of country trip, and realized that I could probably solve this issue if I had my USB OTG cable, but the idea was untested. I then decided to just figure it out, and so I did. Hence these set of scripts.
+The real idea is that: Someone leaves their phone at the table, locked, and only for a few minutes. You pull your phone out, plug them together, and hope to god that have USB debugging enabled (all custom ROMs do.) Slurp down their files, stick your own backdoors there, and you're set to go!
 
+Took me about 45 seconds to copy over 62MB of com.android.google.\* databases and user\_prefs files (from encrypted Galaxy Nexus to unencrypted Galaxy Nexus, but running AOKP Milestone 5).
 
 Requirements
 ------------
