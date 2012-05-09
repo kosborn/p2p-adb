@@ -33,6 +33,19 @@ PC requires
  * adb needs to be in $PATH
  * Something that will interpret shell (I'm looking at you, Windows users)
 
+Running
+------
+
+ * Copy to phone
+ * `su`
+ * `sh ./run.sh`
+ * profit
+
+I haven't fully tested against all ROMS/busybox versions yet, but what I know this works agains:
+ * AOKP Milestone 5
+ * Busybox 1.20.0
+
+As necessary, I'll start expanding and building checks against certain ROMs/toolkit versions to crate maximum damage.
 
 Credits
 -------
