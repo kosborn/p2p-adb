@@ -48,6 +48,25 @@ I haven't fully tested against all ROMS/busybox versions yet, but what I know th
 
 As necessary, I'll start expanding and building checks against certain ROMs/toolkit versions to crate maximum damage.
 
+
+AntiGuard
+---------
+AntiGuard is an Android app I wrote that will assist you in unlcoking a phone.
+Since ADB doesn't always give you root, you might be limited in what you can do. However, the standard ADB shell user is also very powerful.
+
+ * To install AntiGuard, you simply need to run
+   * `adb install AntiGuard/AntiGuard.apk`
+
+ * To unlock the screen once install
+   * `adb shell am start -S io.kos.antiguard/.unlock`
+
+ * To uninstall, hit the uninstall button, or run this command
+   * `adb ununinstall io.kos.antiguard`
+
+
+In the future, this will be rolled into the automated script toolset.
+
+
 Credits
 -------
 
