@@ -33,6 +33,8 @@ prompt(){
 	2) Steal Google data
 	3) Steal Camera Photos
 	4) Steal JPGs > 200k
+	5) Steal Accounts
+	6) Install/Uninstall AntiGuard
 	x) Exit
 	"
 	echo -n "Choose wisely: " 
@@ -44,7 +46,9 @@ prompt(){
 	 2) echo "Steal only Google dataz!" && . ./getGoogleData.sh ;; 
 	 3) echo "GRAB DEM PHOTOS" && . ./getPhotos.sh ;;
 	 4) echo "I GAVE THAT BITCH A JPG" && . ./getJpgs.sh ;;
-	 'x'|'X') echo "Buh-bye!" && exit ;;
+	 5) echo "The good stuff.." && . ./getSensitive.sh ;;
+	 6) echo "Unlocking Screen" && . ./installAnti.sh ;;
+	 'x'|'X') echo "Goodbye." && exit ;;
 	 *) echo "${bold}That's not an answer!${none}\n" &&  prompt ;;
 	esac
 	echo ""
