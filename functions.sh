@@ -13,18 +13,33 @@ red="\033[0;31m"
 
 
 
+# Let's just make sure ADB and busybox (or whatever) are available...
 
-# Let's just make sure ADB is available...
 
-if adb version >/dev/null; then
+if adb version >/dev/null 2>/dev/null; then
 	# good to go
-	true
-else 
+	if abusybox >/dev/null 2>/dev/null; then
+		#adb root&
+		true
+	elif $BUSYBOX; then
+		true
+	else
+		echo "${red}busybox is not in your \$PATH"
+		echo "Install it from the play store!${none}"
+		exit
+	fi
+else
 	echo "${red}adb is not in your \$PATH"
-	echo "Add it, or modify run.sh${none}"
+	echo "Add it, or alias in adb${none}"
 	exit
 fi
 
+
+# ADB rapper to easy root pain...
+command(){
+	true	
+
+}
 
 # Check to see if a device is connected
 isConnected(){
@@ -48,27 +63,20 @@ isConnected(){
 
 # Check to see if we're root on the device
 isRoot(){
-	WHOAMI=$(adb shell whoami | tr -d "\r" )
+	WHOAMI=$(adb shell 'id -u' | tr -d "\r" )
 
-	if [ "$WHOAMI" = "root" ] 
+	if [ "$WHOAMI" = "0" ] 
 	then
 		echo "Running as root"
 		return 0
-	elif [ "$WHOAMI" = "shell" ]
+	elif [ "$WHOAMI" = "2000" ]
 	then
 		echo "Running as shell"
 		return 2
 	else
-		# Let's try something else
-		if [ "$(adb shell id | tr -d '\r' )" = 'uid=0(root) gid=0(root)' ]; then
-			echo "Running as root"
-			return 0
-		#elif [ "$(adb ls /data/data/" | tr -d '\r\)" = ????? ];   // This is probably something we can do too, I just don't have a non-rooted phone
-		else
-			echo $WHOAMI
-			echo "WHAT AM I???"
-			return 1
-		fi
+		echo $WHOAMI
+		echo "WHAT AM I???"
+		return 1
 	fi
 }
 
