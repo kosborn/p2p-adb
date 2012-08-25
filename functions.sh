@@ -11,7 +11,19 @@ none="\033[0m"
 bold="\033[1m"
 red="\033[0;31m"
 
-TMP=/tmp/
+
+# Check to see if local /tmp/ exists (machine)
+# Otherwise, default to /data/local/tmp/ (phone)
+
+if [ -d /tmp/ ]
+then
+	TMP=/tmp/
+else
+	TMP=/data/local/tmp/
+fi
+
+# Just default to /data/local/tmp/
+# As far as I know, it's available on all android versions
 RTMP=/data/local/tmp/
 
 # Let's just make sure ADB and busybox (or whatever) are available...

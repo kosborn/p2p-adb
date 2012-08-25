@@ -13,7 +13,7 @@ IGNOREBUSYBOX=0
 . ./functions.sh
 
 
-echo "${bold}Welcome to p2p-adb!${none}"
+echo "${bold}Welcome to p2p-adb framework!${none}"
 echo "Let's break some stuff."
 
 RUNONCE=0
