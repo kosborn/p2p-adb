@@ -4,11 +4,9 @@
 # kyle@kyleosborn.com
 
 
+echo $ISROOT
 
-isRoot > /dev/null
-ISROOT=$?
-
-if [ $ISROOT -eq 0 ]; then
+if [ $ISROOT -le 1 ]; then
 	DATAPATH="/data/system/accounts.db"
 	echo 'We are root...'
 	getData "$DATAPATH"

@@ -7,16 +7,16 @@
 # If adb is not in your $PATH, configure it with the line below
 #alias adb=/home/usr/bin/adb
 
-# If you don't need busybox (i.e. laptop), keep this false
-BUSYBOX=false
+# If you don't need busybox (i.e. laptop), set this to 1
+IGNOREBUSYBOX=0
 
 . ./functions.sh
+
 
 echo "${bold}Welcome to p2p-adb!${none}"
 echo "Let's break some stuff."
 
-
-
+RUNONCE=0
 prompt(){
 	if [ "$(isConnected)" = 'NO' ]; then
 		echo "Waiting for phone to connect..."
@@ -28,6 +28,21 @@ prompt(){
 		# Found it! Hopefully this won't cause issues 
 		adb wait-for-device
 
+
+	fi
+
+	# check if we're root!
+	# Note: This is here because sh's variable scopig doesn't go UP apparently...
+
+
+	if [ $RUNONCE = 0 ]
+	then
+		ISROOT=$(isRoot noinfo)
+		if [ "$ISROOT" = "1" ]
+		then
+			echo 'WE ARE THE ROOT!'
+			RUNONCE=1
+		fi
 	fi
 
 	echo "What do you want to do today?
@@ -44,7 +59,7 @@ prompt(){
 	read REPLY
 
 	case "$REPLY" in
-	 0) isRoot ;;
+	 0) isRoot info;;
 	 1) echo "STEAL ALL THE DATAZ" && . ./getData.sh ;;
 	 2) echo "Steal only Google dataz!" && . ./getGoogleData.sh ;; 
 	 3) echo "GRAB DEM PHOTOS" && . ./getPhotos.sh ;;

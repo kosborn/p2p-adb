@@ -5,19 +5,15 @@
 
 
 
-isRoot > /dev/null
-ISROOT=$?
 
-if [ $ISROOT -eq 2  ]; then 
+if [ $ISROOT -ge 2  ]; then 
 	DATAPATH="/sdcard/Android/data/*/{shared_prefs,databases}/"
 	echo 'We are user shell!'
 	echo 'Whoever, we can grab contents for /sdcard/Android/data'
 	getData "$DATAPATH"
-elif [ $ISROOT -eq 0 ]; then
+elif [ $ISROOT -le 1 ]; then
 	DATAPATH="/data/data/*/{shared_prefs,databases}/"
 	echo 'We are root...'
 	getData "$DATAPATH"
-else
-	echo $ISROOT
 fi
 

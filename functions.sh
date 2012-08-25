@@ -11,7 +11,8 @@ none="\033[0m"
 bold="\033[1m"
 red="\033[0;31m"
 
-
+TMP=/tmp/
+RTMP=/data/local/tmp/
 
 # Let's just make sure ADB and busybox (or whatever) are available...
 
@@ -21,7 +22,7 @@ if adb version >/dev/null 2>/dev/null; then
 	if busybox >/dev/null 2>/dev/null; then
 		#adb root&
 		true
-	elif $BUSYBOX; then
+	elif [ $IGNOREBUSYBOX -eq 1 ]; then
 		true
 	else
 		echo "${red}busybox is not in your \$PATH"
@@ -35,9 +36,21 @@ else
 fi
 
 
-# ADB rapper to easy root pain...
+# ADB wrapper to easy root pain...
 command(){
-	true	
+	echo "$*" > $TMP/p2p-tmp 
+
+ 	adb push $TMP/p2p-tmp $RTMP/p2p-tmp 2>/dev/null
+
+	if [ "$ISROOT" -eq "1" ]
+	then
+		adb shell "su -c 'sh $RTMP/p2p-tmp'" | tr -d "\r"
+	else
+		adb shell "sh $RTMP/p2p-tmp" | tr -d "\r"
+	fi
+
+	adb shell "rm $RTMP/p2p-tmp" 2>/dev/null
+
 
 }
 
@@ -63,27 +76,32 @@ isConnected(){
 
 # Check to see if we're root on the device
 isRoot(){
-	WHOAMI=$(adb shell 'id -u' | tr -d "\r" )
+	WHOAMI=$(adb shell 'id' | tr -d "\r"  )
+	TRYROOT=$(adb shell 'su -c "id"' | tr -d "\r" )
 
-	if [ "$WHOAMI" = "0" ] 
+	if echo $WHOAMI | grep 'uid=0' 2>&1 >/dev/null 
 	then
-		echo "Running as root"
-		return 0
-	elif [ "$WHOAMI" = "2000" ]
+		[ $1 = 'info' ] && echo "Running as root" 
+		[ $1 != 'info' ] && echo 0
+	elif echo $TRYROOT | grep 'uid=0' 2>&1 >/dev/null
 	then
-		echo "Running as shell"
-		return 2
+		[ $1 = 'info' ] && echo "Not natively root." 
+		[ $1 = 'info' ] && echo "Will continue to escalate with su." 
+		[ $1 != 'info' ] && echo 1
+	elif echo $WHOAMI | grep 'uid=2000' 2>&1 >/dev/null
+	then
+		[ $1 = 'info' ] && echo "Running as shell" 
+		[ $1 != 'info' ] && echo 2
 	else
-		echo $WHOAMI
-		echo "WHAT AM I???"
-		return 1
+		[ $1 = 'info' ] && echo "WHAT AM I???" 
+		[ $1 != 'info' ] && echo 3
 	fi
 }
 
 
 # Check the size of a directory or more
 dataSize(){
-	adb shell "du -hc $*" | tail -n1
+	command "du -hc $*" | tail -n1
 }
 
 
@@ -105,7 +123,7 @@ getData(){
 # Actually get the file
 getDataProto(){
 	FILENAME=jacked_$(date +%s).tar
-	adb shell "tar -cf - $* 2>/dev/null | base64 " | tr -d "\r" |  base64 -d > $FILENAME
+	command "tar -cf - $* 2>/dev/null | base64 " | tr -d "\r" |  base64 -d > $FILENAME
 	echo "The file has been saved as $FILENAME"
 }
 
@@ -138,14 +156,15 @@ getSearch(){
 # Actually get the file
 getSearchProto(){
 	FILENAME=jacked_$(date +%s).tar
-	adb shell "find $1 -iname '$2' -type f -size $3 -exec tar -cf - {} \; 2>/dev/null | base64 " | tr -d "\r" | base64 -d > $FILENAME
+	command "find $1 -iname '$2' -type f -size $3 -exec tar -cf - {} \; 2>/dev/null | base64 " | tr -d "\r" | base64 -d > $FILENAME
 	echo "The file has been saved as $FILENAME"
 }
 
 search(){
-	adb shell "find $1 -iname '$2' -type f -size $3 -exec ls {} \;"
+	command "find $1 -iname '$2' -type f -size $3 -exec ls {} \;"
 }
 
 size(){
-	adb shell "find $1 -iname \"$2\" -type f -size $3 -print0 | xargs -0 du -ch|tail -n1"
+	command "find $1 -iname \"$2\" -type f -size $3 -print0 | xargs -0 du -ch|tail -n1"
 }
+

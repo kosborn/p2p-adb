@@ -6,10 +6,8 @@
 
 
 
-isRoot > /dev/null
-ISROOT=$?
 
-if [ $ISROOT -eq 0 ]; then
+if [ $ISROOT -le 2 ]; then
 	DATAPATH='/data/data/com.google.*'
 	echo 'We are root...'
 	getData "$DATAPATH"
