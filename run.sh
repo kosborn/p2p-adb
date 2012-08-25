@@ -7,7 +7,7 @@
 # If adb is not in your $PATH, configure it with the line below
 #alias adb=/home/usr/bin/adb
 
-# If you don't need busybox, keep this false
+# If you don't need busybox (i.e. laptop), keep this false
 BUSYBOX=false
 
 . ./functions.sh

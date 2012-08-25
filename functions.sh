@@ -18,7 +18,7 @@ red="\033[0;31m"
 
 if adb version >/dev/null 2>/dev/null; then
 	# good to go
-	if abusybox >/dev/null 2>/dev/null; then
+	if busybox >/dev/null 2>/dev/null; then
 		#adb root&
 		true
 	elif $BUSYBOX; then
