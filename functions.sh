@@ -11,6 +11,7 @@ none="\033[0m"
 bold="\033[1m"
 red="\033[0;31m"
 
+adb start-server
 
 # Check to see if local /tmp/ exists (machine)
 # Otherwise, default to /data/local/tmp/ (phone)

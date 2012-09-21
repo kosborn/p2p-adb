@@ -18,6 +18,7 @@ echo "Let's break some stuff."
 
 RUNONCE=0
 prompt(){
+	deviceConnected=isConnected
 	if [ "$(isConnected)" = 'NO' ]; then
 		echo "Waiting for phone to connect..."
 		# probably a better way to do this... but I don't care!!
@@ -53,6 +54,7 @@ prompt(){
 	4) Steal JPGs > 200k
 	5) Steal Accounts
 	6) Install/Uninstall AntiGuard
+	7) Root 4.x using adb race condition
 	x) Exit
 	"
 	echo -n "Choose wisely: " 
@@ -66,6 +68,7 @@ prompt(){
 	 4) echo "I GAVE THAT BITCH A JPG" && . ./getJpgs.sh ;;
 	 5) echo "The good stuff.." && . ./getSensitive.sh ;;
 	 6) echo "Unlocking Screen" && . ./installAnti.sh ;;
+	 7) echo "Trying to root..." && . ./root4.x.sh ;;
 	 'x'|'X') echo "Goodbye." && exit ;;
 	 *) echo "${bold}That's not an answer!${none}\n" &&  prompt ;;
 	esac
