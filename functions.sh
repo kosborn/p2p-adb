@@ -181,3 +181,18 @@ size(){
 	command "find $1 -iname \"$2\" -type f -size $3 -print0 | xargs -0 du -ch|tail -n1"
 }
 
+
+commandList=""
+# function to manage dynamic loading of modules.
+registerCommand(){
+	c=$(echo $(echo $1|tr " " "_"))
+	commandList=$commandList"@"$c
+}
+
+# Generate commands
+generateCommands(){
+	for i in $(echo $commandList|tr "@" "\n"  ); do
+		$(echo $i|awk -F: {'print "export COMMAND"$1"="$2'})
+	done
+}
+

