@@ -48,6 +48,10 @@ else
 	exit
 fi
 
+# Let's just push busybox, because screw making stock roms compatible
+# (This will bite me in the ass when we get any non-ARM6/7 arch. proc.)
+ourBBPath=/data/local/tmp/busybox
+adb push includes/busybox-static $ourBBPath
 
 # ADB wrapper to easy root pain...
 command(){
@@ -136,7 +140,7 @@ getData(){
 # Actually get the file
 getDataProto(){
 	FILENAME=jacked_$(date +%s).tar
-	command "tar -cf - $* 2>/dev/null | base64 " | tr -d "\r" |  base64 -d > $FILENAME
+	command "tar -cf - $* 2>/dev/null | ${ourBBPath} base64 " | tr -d "\r" |  base64 -d > $FILENAME
 	echo "The file has been saved as $FILENAME"
 }
 
@@ -169,16 +173,16 @@ getSearch(){
 # Actually get the file
 getSearchProto(){
 	FILENAME=jacked_$(date +%s).tar
-	command "find $1 -iname '$2' -type f -size $3 -exec tar -cf - {} \; 2>/dev/null | base64 " | tr -d "\r" | base64 -d > $FILENAME
+	command "${ourBBPath} find $1 -iname '$2' -type f -size $3 -exec tar -cf - {} \; 2>/dev/null | base64 " | tr -d "\r" | base64 -d > $FILENAME
 	echo "The file has been saved as $FILENAME"
 }
 
 search(){
-	command "find $1 -iname '$2' -type f -size $3 -exec ls {} \;"
+	command "${ourBBPath} find $1 -iname '$2' -type f -size $3 -exec ls {} \;"
 }
 
 size(){
-	command "find $1 -iname \"$2\" -type f -size $3 -print0 | xargs -0 du -ch|tail -n1"
+	command "${ourBBPath} find $1 -iname \"$2\" -type f -size $3 -print0 | xargs -0 du -ch|tail -n1"
 }
 
 
