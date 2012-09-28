@@ -5,7 +5,7 @@
 
 
 # If adb is not in your $PATH, configure it with the line below
-#alias adb=/home/usr/bin/adb
+alias adb=/home/hackrylix/dev/android/android-sdk-linux/platform-tools/adb
 
 # If you don't need busybox (i.e. laptop), set this to 1
 IGNOREBUSYBOX=0
