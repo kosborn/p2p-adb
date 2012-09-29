@@ -36,6 +36,7 @@ Android requires:
  * **Busybox**
  * A terminal emulator
  * Probably a [USB On the Go cable](http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=usb+otg)
+ * **Check out Hak5's micro-micro USB cable: [Hak5 Shop](http://hakshop.myshopify.com/products/micro-to-micro-otg)
 
 PC requires 
  * Android SDK (specifically, you nee adb)
@@ -53,11 +54,10 @@ Running
 Targets known to be working:
  * AOKP Milestone 5
  * CyanogenMod
- * Busybox 1.20.0
- * Probably others, all they really need at the moent is busybox
 
 Targets that still have some issues:
  * Stock Android (Still figuring out the best methods to re-implement everything with a limited shell environment)
+ * **Note! Stock Android is now working, busybox is now PUSHED to the device**
 
 As necessary, I'll start expanding and building checks against certain ROMs/toolkit versions to create maximum damage.
 
@@ -91,4 +91,4 @@ Me, you're welcome. [@theKos](https://twitter.com/#!/thekos)
 License
 -------
 
-GPLv2
+GPLv3

@@ -30,6 +30,7 @@ prompt(){
 		adb wait-for-device
 
 
+
 	fi
 
 	# check if we're root!
@@ -38,6 +39,13 @@ prompt(){
 
 	if [ $RUNONCE = 0 ]
 	then
+		# Let's just push busybox, because screw making stock roms compatible
+		# (This will bite me in the ass when we get any non-ARM6/7 arch. proc.)
+		ourBBPath=/data/local/tmp/busybox
+		adb push includes/busybox-static $ourBBPath
+		adb shell "chmod 777 /data/local/tmp/busybox"
+		echo "Trying to push busybox..."
+
 		ISROOT=$(isRoot noinfo)
 		if [ "$ISROOT" = "1" ]
 		then
@@ -55,6 +63,7 @@ prompt(){
 	5) Steal Accounts
 	6) Install/Uninstall AntiGuard
 	7) Root 4.x using adb race condition
+	8) Get pattern unlock!
 	x) Exit
 	"
 	echo -n "Choose wisely: " 
@@ -69,6 +78,7 @@ prompt(){
 	 5) echo "The good stuff.." && . ./getSensitive.sh ;;
 	 6) echo "Unlocking Screen" && . ./installAnti.sh ;;
 	 7) echo "Trying to root..." && . ./root4.x.sh ;;
+	 8) echo "Getting gesture..." && . ./getGesture.sh ;;
 	 'x'|'X') echo "Goodbye." && exit ;;
 	 *) echo "${bold}That's not an answer!${none}\n" &&  prompt ;;
 	esac

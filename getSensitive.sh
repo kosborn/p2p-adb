@@ -7,7 +7,7 @@
 echo $ISROOT
 
 if [ $ISROOT -le 1 ]; then
-	DATAPATH="/data/system/accounts.db"
+	DATAPATH="/data/system/accounts.db /data/system/users/0/accounts.db"
 	echo 'We are root...'
 	getData "$DATAPATH"
 else

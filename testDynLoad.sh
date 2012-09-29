@@ -33,5 +33,30 @@ done
 
 echo "Select a command:"
 read userCommand
+	deviceConnected=isConnected
+	if [ "$(isConnected)" = 'NO' ]; then                                         eval $(echo '$COMMAND'$userCommand)
+		echo "Waiting for phone to connect..."
+		# probably a better way to do this... but I don't care!!
+		#while [ "$(isConnected)" = 'NO' ]; do
+		#	sleep .1
+		#done
 
-eval $(echo '$COMMAND'$userCommand)
+		# Found it! Hopefully this won't cause issues 
+		adb wait-for-device
+
+
+	fi
+
+	# check if we're root!
+	# Note: This is here because sh's variable scopig doesn't go UP apparently...
+
+
+	if [ $RUNONCE = 0 ]
+	then
+		ISROOT=$(isRoot noinfo)
+		if [ "$ISROOT" = "1" ]
+		then
+			echo 'WE ARE THE ROOT!'
+			RUNONCE=1
+		fi
+	fi
