@@ -36,7 +36,7 @@ Android requires:
  * **Busybox**
  * A terminal emulator
  * Probably a [USB On the Go cable](http://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=usb+otg)
- * **Check out Hak5's micro-micro USB cable: [Hak5 Shop](http://hakshop.myshopify.com/products/micro-to-micro-otg)
+ * **Check out Hak5's micro-micro USB cable: [Hak5 Shop](http://hakshop.myshopify.com/products/micro-to-micro-otg)**
 
 PC requires 
  * Android SDK (specifically, you nee adb)
@@ -85,6 +85,7 @@ Since ADB doesn't always give you root, you might be limited in what you can do.
 Credits
 -------
 
+**Note**: If you're looking to report a bug, please use the issue tracker in GitHub. Support can also be found that way. 
 Me, you're welcome. [@theKos](https://twitter.com/#!/thekos)
 [Email](mailto:kyle@kyleosborn.com)
 
