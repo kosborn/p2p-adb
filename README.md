@@ -65,6 +65,7 @@ As necessary, I'll start expanding and building checks against certain ROMs/tool
 AntiGuard
 ---------
 AntiGuard is an Android app I wrote that will assist you in unlcoking a phone.
+
 Since ADB doesn't always give you root, you might be limited in what you can do. However, the standard ADB shell user is also very powerful.
 
  * AntiGuard is now built into the regular toolset!
@@ -86,7 +87,9 @@ Credits
 -------
 
 **Note**: If you're looking to report a bug, please use the issue tracker in GitHub. Support can also be found that way. 
+
 Me, you're welcome. [@theKos](https://twitter.com/#!/thekos)
+
 [Email](mailto:kyle@kyleosborn.com)
 
 License
