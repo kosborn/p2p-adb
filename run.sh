@@ -10,6 +10,23 @@
 # If you don't need busybox (i.e. laptop), set this to 1
 IGNOREBUSYBOX=0
 
+# If you want to try adb-arm-static, then set this to 1
+# NOTE: THIS IS FOR TESTING PURPOSES ONLY.
+# I CAN NOT GUARANTEE IT WILL WORK
+# DO NOT ENABLE THIS ON x86/64 COMPUTERS
+tryStaticADB=0
+
+if [ $tryStaticADB -eq 0 ]; then
+	# assume it's in $PATH...
+	adb=$(which adb)
+else
+	adbTMP=$PWD/includes/adb-arm-static
+	su -c "cp ${adbTMP} /data/local/tmp/adb-arm-static"
+	adb=/data/local/tmp/adb-arm-static 
+	su -c "chmod 777 ${adb}"
+fi
+
+
 . ./functions.sh
 
 
@@ -27,7 +44,7 @@ prompt(){
 		#done
 
 		# Found it! Hopefully this won't cause issues 
-		adb wait-for-device
+		$adb wait-for-device
 
 
 
@@ -42,8 +59,8 @@ prompt(){
 		# Let's just push busybox, because screw making stock roms compatible
 		# (This will bite me in the ass when we get any non-ARM6/7 arch. proc.)
 		ourBBPath=/data/local/tmp/busybox
-		adb push includes/busybox-static $ourBBPath
-		adb shell "chmod 777 /data/local/tmp/busybox"
+		$adb push includes/busybox-static $ourBBPath
+		$adb shell "chmod 777 /data/local/tmp/busybox"
 		echo "Trying to push busybox..."
 
 		ISROOT=$(isRoot noinfo)
