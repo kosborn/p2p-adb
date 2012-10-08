@@ -11,6 +11,8 @@
 IGNOREBUSYBOX=0
 
 # If you want to try adb-arm-static, then set this to 1
+# Added this for issue #5
+#
 # NOTE: THIS IS FOR TESTING PURPOSES ONLY.
 # I CAN NOT GUARANTEE IT WILL WORK
 # DO NOT ENABLE THIS ON x86/64 COMPUTERS
