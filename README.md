@@ -5,6 +5,12 @@ p2p-adb Framework
 
 A loose framework to assist in pulling data, making system changes, etc, with minimal user input.
 
+**Media**
+
+* Featured on [Hak5](http://hak5.org/episodes/hak5-1205) (hak5.org)
+* Presented at [DerbyCon 2012](http://www.irongeek.com/i.php?page=videos/derbycon2/1-2-9-kyle-kos-osborn-physical-drive-by-downloads) (irongeek.com)
+* DerbyCon 2012 [slides](kyleosborn.com/android/AndroidPhySec.pdf) (kyleosborn.com) (PDF)
+
 Goal/Reason
 -----------
 
