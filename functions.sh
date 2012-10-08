@@ -11,11 +11,6 @@ none="\033[0m"
 bold="\033[1m"
 red="\033[0;31m"
 
-adb kill-server
-#either su, which helps afterwords for being root
-#or just starting the server with root permissions, which would be: sudo adb start-server
-su
-adb start-server
 
 # Check to see if local /tmp/ exists (machine)
 # Otherwise, default to /data/local/tmp/ (phone)
@@ -51,6 +46,12 @@ else
 	echo "Add it, or alias in adb${none}"
 	exit
 fi
+
+
+adb kill-server
+#either su, which helps afterwords for being root
+#or just starting the server with root permissions, which would be: sudo adb start-server
+su -c 'adb start-server'
 
 # ADB wrapper to easy root pain...
 command(){
