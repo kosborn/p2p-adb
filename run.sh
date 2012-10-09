@@ -82,6 +82,7 @@ prompt(){
 	5) Steal Accounts
 	6) Install/Uninstall AntiGuard
 	7) Root 4.x using adb race condition
+	(Not guaranteed to work on all devices!) 
 	8) Get pattern unlock!
 	x) Exit
 	"
