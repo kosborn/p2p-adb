@@ -9,6 +9,16 @@
 # If adb is not in your $PATH, configure it with the line below
 #alias adb=/home/usr/bin/adb
 
+if [ $tryStaticADB -eq 0 ]; then
+	# assume it's in $PATH...
+	adb=$(which adb)
+else
+	adbTMP=$PWD/includes/adb-arm-static
+	su -c "cp ${adbTMP} /data/local/tmp/adb-arm-static"
+	adb=/data/local/tmp/adb-arm-static 
+	su -c "chmod 777 ${adb}"
+fi
+
 # If you don't need busybox (i.e. laptop), set this to 1
 IGNOREBUSYBOX=0
 

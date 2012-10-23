@@ -28,6 +28,8 @@ RTMP=/data/local/tmp/
 
 # Let's just make sure ADB and busybox (or whatever) are available...
 
+echo "Using: ${adb}"
+
 
 if $adb version >/dev/null 2>/dev/null; then
 	# good to go
