@@ -8,7 +8,7 @@
 
 
 if [ $ISROOT -le 2 ]; then
-	DATAPATH='/data/data/com.google.*'
+	DATAPATH='/data/data/com.google.*/{shared_prefs,databases}/'
 	echo 'We are root...'
 	getData "$DATAPATH"
 else
