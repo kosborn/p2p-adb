@@ -70,7 +70,7 @@ As necessary, I'll start expanding and building checks against certain ROMs/tool
 
 AntiGuard
 ---------
-AntiGuard is an Android app I wrote that will assist you in unlcoking a phone.
+AntiGuard is an Android app I wrote that will assist you in unlocking a phone.
 
 Since ADB doesn't always give you root, you might be limited in what you can do. However, the standard ADB shell user is also very powerful.
 
