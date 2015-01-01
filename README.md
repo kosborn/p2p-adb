@@ -23,7 +23,7 @@ Took me about 45 seconds to copy over 62MB of com.android.google.\* databases an
 A Framework?
 ------------
 
-Yes, because as devious as I might think I am (and I am), I'm certain others have more clever ideas than mine.
+Yes, because as devious as I might think I am (an I am), I'm certain others have more clever ideas than mine.
 
 As this project develops, it will form more into a framework, providing tools necessary to quickly, and sanely, allow users (i.e. you) to create scripts as easily as possible.
 
