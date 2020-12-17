@@ -69,4 +69,4 @@ read userCommand
 			echo 'WE ARE THE ROOT!'
 			RUNONCE=1
 		fi
-	fi
+	fi1
